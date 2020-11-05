@@ -1,0 +1,39 @@
+---
+  - hosts: all
+    tasks:
+
+      - name: Copy file Debian
+        copy:
+          src: /home/ansible/script/mc_deb.sh
+          dest: /home/kosmos/mc_deb.sh
+          mode: u=rwx,g=rx,o=rx
+        when: ansible_os_family == 'Debian'
+
+      - name: Copy file RedHat
+        copy:
+          src: /home/ansible/script/mc_red.sh
+          dest: /home/ec2-user/mc_red.sh
+          mode: u=rwx,g=rx,o=rx
+        when: ansible_os_family == 'RedHat'
+
+      - name: Start script on Debian
+        shell: /home/kosmos/mc_deb.sh
+        when: ansible_os_family == 'Debian'
+
+      - name: Start script on RedHat
+        shell: /home/ec2-user/mc_red.sh
+        when: ansible_os_family == 'RedHat'
+
+      - name: Delete installation script Debian
+        file:
+          path: /home/kosmos/mc_deb.sh
+          state: absent
+        when: ansible_os_family == "Debian"
+
+      - name: Delete installation script RedHat
+        file:
+          path: /home/ec2-user/mc_red.sh
+          state: absent
+        when: ansible_os_family == "RedHat"
+
+

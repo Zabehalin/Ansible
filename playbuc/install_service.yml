@@ -1,0 +1,20 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: install mysql-server
+      apt: name=mysql-server state=apsent update_cache=yes
+
+      # - name: mysql start
+      # service: name=mysql state=started enabled=yes
+
+      # - name: install nginx
+      # apt: name=nginx state=present update_cache=yes
+
+      # - name: nginx start
+      # service: name=nginx state=started enabled=yes
+
+    - name: install apache2
+      apt:  name=apache2 state=apsent update_cache=yes
+
+      # - name: apache2 start
+      #service: name=apache2 state=started enabled=yes

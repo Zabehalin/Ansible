@@ -1,0 +1,19 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Delete tools
+      apt: name={{item}} state=absent update_cache=yes
+      with_items:
+        - apache2
+        - mysql-server
+        - nginx
+      when: ansible_os_family == "Debian"
+
+    - name: Delete tools
+      yum: name={{item}} state=absent update_cache=yes
+      with_items:
+        - apache2
+        - mysql-server
+        - nginx
+      when: ansible_os_family == "RedHat"
+

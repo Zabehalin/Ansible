@@ -1,0 +1,25 @@
+---
+  - hosts: all
+    tasks:
+      - name: get server hostname
+        command: hostname
+        register: command_output
+      - debug: msg="{{command_output.stdout}}"
+
+      - name: OS-Release
+        command: cat /etc/os-release
+        register: command_release
+      - debug: msg="{{command_release.stdout_lines[1]}}"
+
+      - name: ipaddr
+        command: ifconfig
+        register: command_ifconfig
+      - debug: msg="{{command_ifconfig.stdout_lines[1]}}"
+
+      - name: OS-resolv
+        command: cat /etc/resolv.conf
+        register: command_resolv
+      - debug: msg="{{command_resolv.stdout_lines[16]}}"
+      
+        
+
